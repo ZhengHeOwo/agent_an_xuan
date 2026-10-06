@@ -21,7 +21,7 @@ type Runtime struct {
 }
 
 // NewRuntime 创建Agent运行时。
-func NewRuntime(llm model.Model, modelName string, systemPrompt string, tools *tool.ToolRegistry, preference string) (*Runtime, error) {
+func NewRuntime(llm model.Model, modelName string, systemPrompt string, tools *tool.ToolRegistry) (*Runtime, error) {
 	if llm == nil {
 		return nil, fmt.Errorf("Model must not be empty")
 	}
@@ -33,8 +33,6 @@ func NewRuntime(llm model.Model, modelName string, systemPrompt string, tools *t
 	if strings.TrimSpace(systemPrompt) == "" {
 		return nil, fmt.Errorf("systemPrompt must not be empty")
 	}
-
-	systemPrompt += preference
 
 	if tools == nil {
 		return nil, fmt.Errorf("tool registry must not be empty")
