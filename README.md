@@ -1,8 +1,18 @@
+## 主机编译与启动
+程序跑24h在Linux上 使用 'Remote SSH' 拓展维护和更新, 在Linux端结束旧程序, 复制运行这段:
+
+cd ~/agent_an_xuan &&
+go build -o ~/agent-bin/agent-an-xuan.new ./Agent_AnXuan/agent/cmd/agent &&
+mv ~/agent-bin/agent-an-xuan.new ~/agent-bin/agent-an-xuan &&
+~/agent-bin/agent-an-xuan
+
+比手写方便.
+
 ## 运行前准备：
 1.本地创建.env.local文件，就是.env.example那个位置
 
 ## 须知:
-当前各工具绑定"当前所在目录", 逻辑位于: Agent_AnXuan/agent/internal/workspace/workspace.go, 详情:"const DefaultDir = `.`".
+如果你在本机跑需要注意 --当前各工具绑定"当前所在目录", 逻辑位于: Agent_AnXuan/agent/internal/workspace/workspace.go, 详情:"const DefaultDir = `.`".
 正常来说没什么问题, 运行go run时cd到 '你的盘:\agent_an_xuan>' 就行.
 
 ## 重要须知:
@@ -19,4 +29,4 @@
 第一版确认完成之前不写完整的README。
 
 -狰和
-2026/9/30
+2026/10/8
