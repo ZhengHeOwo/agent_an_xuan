@@ -29,6 +29,7 @@ func run() error {
 	if err != nil {
 		return fmt.Errorf("创建终端交互对象失败: %w", err)
 	}
+	defer console.Close()
 
 	if err := config.LoadEnvFile("./Agent_AnXuan/local/config/.env.local"); err != nil {
 		return fmt.Errorf("加载环境文件失败: %w", err)
@@ -128,7 +129,7 @@ func run() error {
 
 		reply, err := runtime.RunTurn(context.Background(), input)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "本轮执行失败: %v\n", err)
+			console.Write([]byte(fmt.Sprintf("本轮执行失败: %v\n", err)))
 			continue
 		}
 

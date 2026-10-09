@@ -1,13 +1,15 @@
 package terminal
 
 import (
-	"bufio"
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"strings"
 
 	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/tool"
+
+	"github.com/chzyer/readline"
 )
 
 // Console 统一管理命令行程序的文本输入和输出。
@@ -15,8 +17,7 @@ import (
 // 同一个Console应同时用于主对话和副作用确认，避免多个缓冲读取器
 // 竞争同一个输入源。
 type Console struct {
-	reader *bufio.Reader
-	writer io.Writer
+	rl *readline.Instance
 }
 
 // NewConsole 创建终端交互对象。
@@ -29,33 +30,37 @@ func NewConsole(reader io.Reader, writer io.Writer) (*Console, error) {
 		return nil, fmt.Errorf("终端输出不能为空")
 	}
 
-	return &Console{
-		reader: bufio.NewReader(reader),
-		writer: writer,
-	}, nil
+	rl, err := readline.NewEx(&readline.Config{
+		Prompt:                 ": ",
+		DisableAutoSaveHistory: true,
+		HistoryLimit:           100,
+		Stdin:                  io.NopCloser(reader),
+		Stdout:                 writer,
+		Stderr:                 writer,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("readline 初始化失败 %w", err)
+	}
+
+	return &Console{rl: rl}, nil
 }
 
 // ReadLine 输出提示并读取一行文本。
 func (c *Console) ReadLine(prompt string) (string, error) {
-	if _, err := fmt.Fprint(c.writer, prompt); err != nil {
-		return "", fmt.Errorf("输出终端提示失败: %w", err)
-	}
+	c.rl.SetPrompt(prompt)
+	line, err := c.rl.Readline()
+	if err != nil {
+		if errors.Is(err, readline.ErrInterrupt) || errors.Is(err, io.EOF) {
+			return "", io.EOF
+		}
 
-	line, err := c.reader.ReadString('\n')
-	if err != nil && err != io.EOF {
 		return "", fmt.Errorf("读取终端输入失败: %w", err)
 	}
 
-	line = strings.TrimSpace(line)
-
-	if err == io.EOF && line == "" {
-		return "", io.EOF
-	}
-
-	return line, nil
+	return strings.TrimSpace(line), nil
 }
 
-// Confirm 展示副作用操作并等待狰和明确授权。
+// Confirm 展示副作用操作并等待明确授权。
 func (c *Console) Confirm(ctx context.Context, request tool.ConfirmationRequest) (bool, error) {
 	if err := ctx.Err(); err != nil {
 		return false, fmt.Errorf("确认操作前上下文已结束: %w", err)
@@ -94,3 +99,11 @@ func (c *Console) Confirm(ctx context.Context, request tool.ConfirmationRequest)
 }
 
 var _ tool.Confirmer = (*Console)(nil)
+
+func (c *Console) Write(p []byte) (int, error) {
+	return c.rl.Write(p)
+}
+
+func (c *Console) Close() error {
+	return c.rl.Close()
+}
