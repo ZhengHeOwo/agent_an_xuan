@@ -1,5 +1,6 @@
 ## 主机编译与启动
-程序跑24h在Linux上 使用 'Remote SSH' 拓展维护和更新, 在Linux端结束旧程序, 复制运行这段:
+我的程序已迁移至Linux ,使用vscode的 'Remote SSH' 拓展进行维护和更新, 目的是适配未来支持的长期运行.
+在Linux端结束旧程序并编译和运行新程序, 复制这段到终端运行:
 
 cd ~/agent_an_xuan &&
 go build -o ~/agent-bin/agent-an-xuan.new ./Agent_AnXuan/agent/cmd/agent &&
@@ -26,7 +27,9 @@ mv ~/agent-bin/agent-an-xuan.new ~/agent-bin/agent-an-xuan &&
 
 接下来做长任务需要的各组件,同时随便优化现有的东西.
 
+项目兼容会逐渐向Linux偏移.
+
 第一版确认完成之前不写完整的README。
 
 -狰和
-2026/10/8
+2026/10/9
