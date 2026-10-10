@@ -3,9 +3,9 @@
 
 !**/.env.example
 
-**/Agent_AnXuan/local/data/*
+**/agent/local/data/*
 
-**/Agent_AnXuan/local/prompts/*
+**/agent/local/prompts/*
 
 **/Collaborator_Workspace/*
 

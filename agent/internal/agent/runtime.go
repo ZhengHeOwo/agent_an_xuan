@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/model"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/tool"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/model"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/tool"
 )
 
 const maxModelSteps = 30

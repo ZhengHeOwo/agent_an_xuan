@@ -2,8 +2,8 @@
 我的程序已迁移至Linux ,使用vscode的 'Remote SSH' 拓展进行维护和更新, 目的是适配未来支持的长期运行.
 在Linux端结束旧程序并编译和运行新程序, 复制这段到终端运行:
 
-cd ~/agent_an_xuan &&
-go build -o ~/agent-bin/agent-an-xuan.new ./Agent_AnXuan/agent/cmd/agent &&
+cd ~/agent_noah &&
+go build -o ~/agent-bin/agent-an-xuan.new ./agent/agent/cmd/agent &&
 mv ~/agent-bin/agent-an-xuan.new ~/agent-bin/agent-an-xuan &&
 ~/agent-bin/agent-an-xuan
 
@@ -13,14 +13,14 @@ mv ~/agent-bin/agent-an-xuan.new ~/agent-bin/agent-an-xuan &&
 1.本地创建.env.local文件，就是.env.example那个位置
 
 ## 须知:
-如果你在本机跑需要注意 --当前各工具绑定"当前所在目录", 逻辑位于: Agent_AnXuan/agent/internal/workspace/workspace.go, 详情:"const DefaultDir = `.`".
-正常来说没什么问题, 运行go run时cd到 '你的盘:\agent_an_xuan>' 就行.
+如果你在本机跑需要注意 --当前各工具绑定"当前所在目录", 逻辑位于: agent/agent/internal/workspace/workspace.go, 详情:"const DefaultDir = `.`".
+正常来说没什么问题, 运行go run时cd到 '你的盘:\agent_noah>' 就行.
 
 ## 重要须知:
 如果我的api_key意外泄露了, 请联系 15166143379@163.com 或 he2619522@gmail.com, 请不要默默消耗, 除非你是一个巨大的GAY!
 
 ## 运行：
-终端输入: go run Agent_AnXuan/agent/cmd/agent/main.go
+终端输入: go run agent/agent/cmd/agent/main.go
 
 ## Bro有话说：
 个人练习项目，项目目标为"协作者"，

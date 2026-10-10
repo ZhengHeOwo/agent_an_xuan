@@ -9,13 +9,13 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/agent"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/config"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/model/openai"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/terminal"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/tool"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/websearch"
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/workspace"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/agent"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/config"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/model/openai"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/terminal"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/tool"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/websearch"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/workspace"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func run() error {
 	}
 	defer console.Close()
 
-	if err := config.LoadEnvFile("./Agent_AnXuan/local/config/.env.local"); err != nil {
+	if err := config.LoadEnvFile("./agent/local/config/.env.local"); err != nil {
 		return fmt.Errorf("加载环境文件失败: %w", err)
 	}
 
@@ -108,7 +108,8 @@ func run() error {
 		return fmt.Errorf("创建Agent运行器失败: %w", err)
 	}
 
-	fmt.Println("Agent AnXuan 已启动, 输入 exit 退出")
+console.Write([]byte(fmt.Sprint("Agent Noah 已启动, 输入 exit 退出\n")))
+
 	for {
 		input, err := console.ReadLine(": ")
 		if err != nil {
@@ -133,6 +134,6 @@ func run() error {
 			continue
 		}
 
-		fmt.Printf("\n\n\nAnXuan: \n%s\n", reply)
+		console.Write([]byte(fmt.Sprint("\nNoah: \n%s\n", reply)))
 	}
 }

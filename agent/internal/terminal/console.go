@@ -7,7 +7,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/ZhengHeOwo/agent_an_xuan/Agent_AnXuan/agent/internal/tool"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/tool"
 
 	"github.com/chzyer/readline"
 )
