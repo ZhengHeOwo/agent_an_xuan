@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/ZhengHeOwo/agent_noah/agent/internal/agent"
+	"github.com/ZhengHeOwo/agent_noah/agent/internal/runtime"
 	"github.com/ZhengHeOwo/agent_noah/agent/internal/config"
 	"github.com/ZhengHeOwo/agent_noah/agent/internal/model/openai"
 	"github.com/ZhengHeOwo/agent_noah/agent/internal/terminal"
@@ -134,6 +134,6 @@ console.Write([]byte(fmt.Sprint("Agent Noah 已启动, 输入 exit 退出\n")))
 			continue
 		}
 
-		console.Write([]byte(fmt.Sprint("\nNoah: \n%s\n", reply)))
+		console.Write([]byte(fmt.Sprintf("\nNoah: \n%s\n", reply)))
 	}
 }

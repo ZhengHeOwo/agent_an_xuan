@@ -9,7 +9,7 @@ import (
 
 	"github.com/ZhengHeOwo/agent_noah/agent/internal/tool"
 
-	"github.com/chzyer/readline"
+	"github.com/ergochat/readline"
 )
 
 // Console 统一管理命令行程序的文本输入和输出。
